@@ -91,7 +91,7 @@
   };
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success);
+    navigator.geolocation.getCurrentPosition(success, function(){ console.log('fail') }, { enableHighAccuracy: true });
   }
   </script>
 </html>
