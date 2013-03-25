@@ -11,14 +11,20 @@
         background-image: url('background.jpg');
         overflow: hidden;
       }
-      html, body, #map{
+      html, body{
         height: 100%;
         width: 100%;
         margin: 0;
         padding: 0;
       }
       #map{
+        width: 100%;
+        height: 80%;
+        top: 20%;
+        position: absolute;
         visibility: hidden;
+        margin: 0;
+        padding: 0;
       }
       /* #moon { margin-top: 3em; } */
     </style>
@@ -59,9 +65,9 @@
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
     map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
-    //var accspan = document.createElement('span');
-    //accspan.innerHTML = position.coords.accuracy;
-    //document.getElementById("riseset").appendChild(accspan);
+    var accspan = document.createElement('span');
+    accspan.innerHTML = "Accuracy: " + position.coords.accuracy + "m";
+    document.getElementById("riseset").appendChild(accspan);
     //if(position.coords.accuracy < 1000){
       // using an accurate measurement, can see if this is outside
       //document.getElementById("map").style.visibility = "visible";
@@ -90,6 +96,23 @@
     var mytime = (100 * mytime.getHours()) + (1 * mytime.getMinutes());
     if((mytime < sunrise && mytime < moonset && ( moonrise > sunrise || moonrise < mytime )) || (mytime > sunset && mytime > moonrise && ( moonset < sunset || moonset > mytime ))){
       document.getElementById("map").style.visibility = "visible";
+    }
+    else{
+      if(mytime > sunrise && mytime < sunset){
+        var accspan = document.createElement('span');
+        accspan.innerHTML = "The sun has not yet set";
+        document.getElementById("riseset").appendChild(accspan);
+      }
+      else if(mytime < moonrise){
+        var accspan = document.createElement('span');
+        accspan.innerHTML = "The moon has not yet risen";
+        document.getElementById("riseset").appendChild(accspan);
+      }
+      else if(mytime > moonset){
+        var accspan = document.createElement('span');
+        accspan.innerHTML = "The moon has already set today";
+        document.getElementById("riseset").appendChild(accspan);
+      }
     }
     
     document.getElementById('date').innerHTML += year + "/" + month + "/" + day;
