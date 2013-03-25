@@ -11,15 +11,30 @@
         background-image: url('background.jpg');
         overflow: hidden;
       }
+      html, body, #map{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
       /* #moon { margin-top: 3em; } */
     </style>
     <meta charset="utf-8" />
-    <!-- http://matt.might.net/articles/how-to-native-iphone-ipad-apps-in-javascript/ -->
-    <!-- meta name="apple-mobile-web-app-capable" content="yes" / -->
-    <!-- meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" / -->
     <meta name="viewport" content="width=device-width" / >
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>></script>
+    <script type="text/javascript">
+  function init(){
+    var mapOptions = {
+      center: new google.maps.LatLng(-34.397, 150.644),
+      zoom: 8,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  }
+    </script>
   </head>
-  <body>
+  <body onload="init();">
+    <div id="map"></div>
     <svg id="moon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" version="1.1"/>
     <div id="riseset" style="position: absolute; top:0; left: 0; background: white; visibility:hidden; ">
       <table>
@@ -30,12 +45,6 @@
         <tr><td colspan="2"><span style="font-size: small;" id="date"/></td><td><span id="mooncent"/></td><td><span id="zodiac"></td></tr>
       </table>
     </div>
-
-    <a href="https://github.com/tingletech/moon-phase" 
-      style="position: absolute; top: 0; right: 0; border: 0;" >
-      <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" 
-        alt="Fork me on GitHub" >
-    </a>
   </body>
   <script type="text/javascript" src="moon-phase.js" charset="UTF-8"></script>
   <script type="text/javascript" src="riset.js" charset="UTF-8"></script>
