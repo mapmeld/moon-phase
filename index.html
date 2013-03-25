@@ -17,6 +17,9 @@
         margin: 0;
         padding: 0;
       }
+      #map{
+        opacity: 0;
+      }
       /* #moon { margin-top: 3em; } */
     </style>
     <meta charset="utf-8" />
@@ -27,7 +30,7 @@
   function init(){
     var mapOptions = {
       center: new google.maps.LatLng(-34.397, 150.644),
-      zoom: 8,
+      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -55,10 +58,14 @@
   var success = function(position) {
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
-    map.setCenter( new google.maps.LatLng( lat, lon ) );
-    console.log(position.coords.accuracy);
+    map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
+    //console.log(position.coords.accuracy);
+    var accspan = document.createElement('span');
+    accspan.innerHTML = position.coords.accuracy;
+    document.getElementById("riseset").appendChild(accspan);
     if(position.coords.accuracy < 1000){
       // using an accurate measurement, can see if this is outside
+      document.getElementById("map").style.opacity = 1;
     }
     var today = today || new Date();
     var year = today.getFullYear();
