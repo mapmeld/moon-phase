@@ -44,7 +44,7 @@ function moon_day(today) {
     return (((thisJD - oldJ) / 29.53059));
 }
 
-function phase_junk(phase) {
+function phase_junk(phase, sendbackphase) {
     var sweep = [];
     var mag;
     // the "sweep-flag" and the direction of movement change every quarter moon

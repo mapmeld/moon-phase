@@ -95,7 +95,15 @@
     var mytime = new Date();
     var mytime = (100 * mytime.getHours()) + (1 * mytime.getMinutes());
     if((mytime < sunrise && mytime < moonset && ( moonrise > sunrise || moonrise < mytime )) || (mytime > sunset && mytime > moonrise && ( moonset < sunset || moonset > mytime ))){
-      document.getElementById("map").style.visibility = "visible";
+      // moon is out, but is it a full moon?
+      if(moon_day(today) > 0.4375 && moon_day(today) <= 0.5625){
+        document.getElementById("map").style.visibility = "visible";
+      }
+      else{
+        var accspan = document.createElement('span');
+        accspan.innerHTML = "This map must be read during a full moon";
+        document.getElementById("riseset").appendChild(accspan);
+      }
     }
     else{
       if(mytime > sunrise && mytime < sunset){
