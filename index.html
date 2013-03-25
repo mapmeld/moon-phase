@@ -23,13 +23,14 @@
     <meta name="viewport" content="width=device-width" / >
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>></script>
     <script type="text/javascript">
+  var map;
   function init(){
     var mapOptions = {
       center: new google.maps.LatLng(-34.397, 150.644),
       zoom: 8,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
   }
     </script>
   </head>
@@ -54,6 +55,11 @@
   var success = function(position) {
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
+    map.setCenter( new google.maps.LatLng( lat, lon ) );
+    console.log(position.coords.accuracy);
+    if(position.coords.accuracy < 1000){
+      // using an accurate measurement, can see if this is outside
+    }
     var today = today || new Date();
     var year = today.getFullYear();
     var day = today.getDate();
