@@ -18,7 +18,7 @@
         padding: 0;
       }
       #map{
-        opacity: 0;
+        visibility: hidden;
       }
       /* #moon { margin-top: 3em; } */
     </style>
@@ -59,14 +59,13 @@
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
     map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
-    //console.log(position.coords.accuracy);
-    var accspan = document.createElement('span');
-    accspan.innerHTML = position.coords.accuracy;
-    document.getElementById("riseset").appendChild(accspan);
-    if(position.coords.accuracy < 1000){
+    //var accspan = document.createElement('span');
+    //accspan.innerHTML = position.coords.accuracy;
+    //document.getElementById("riseset").appendChild(accspan);
+    //if(position.coords.accuracy < 1000){
       // using an accurate measurement, can see if this is outside
-      document.getElementById("map").style.opacity = 1;
-    }
+      //document.getElementById("map").style.visibility = "visible";
+    //}
     var today = today || new Date();
     var year = today.getFullYear();
     var day = today.getDate();
@@ -75,23 +74,40 @@
     var tz = -today.getTimezoneOffset()/60;
     var mj = mjd(day, month, year, 0.0);
     var riset = find_moonrise_set(mj, tz, lon, lat);
-    var moonrise = riset[0];
-    var moonset = riset[1];
+    var moonrise = riset[0] * 1;
+    var moonset = riset[1] * 1;
     document.getElementById('moonrise').innerHTML += moonrise;
     document.getElementById('moonset').innerHTML += moonset;
     document.getElementById('riseset').style.visibility = 'visible';
     var sunrs = find_sun_and_twi_events_for_date(mj, tz, lon, lat).split(" ");
-    var sunrise = sunrs[1];
-    var sunset = sunrs[2];
+    var sunrise = sunrs[1] * 1;
+    var sunset = sunrs[2] * 1;
     document.getElementById('sunrise').innerHTML += sunrise;
     document.getElementById('sunset').innerHTML += sunset;
+    
+    // show map before sunrise and moonset OR after sunset and moonrise
+    var mytime = new Date();
+    var mytime = (100 * mytime.getHours()) + (1 * mytime.getMinutes());
+    if((mytime < sunrise && mytime < moonset && ( moonrise > sunrise || moonrise < mytime )) || (mytime > sunset && mytime > moonrise && ( moonset < sunset || moonset > mytime ))){
+      document.getElementById("map").style.visibility = "visible";
+    }
+    
     document.getElementById('date').innerHTML += year + "/" + month + "/" + day;
     document.getElementById('zodiac').innerHTML += zodiac_sign(today);
     document.getElementById('mooncent').innerHTML += moon_day(today).toFixed(2)*100 + "%";
   };
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, function(){ console.log('fail') }, { enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(success, function(){
+      var accspan = document.createElement('span');
+      accspan.innerHTML = "Geolocation must be enabled";
+      document.getElementById("riseset").appendChild(accspan);
+    }, { enableHighAccuracy: true });
+  }
+  else{
+    var accspan = document.createElement('span');
+    accspan.innerHTML = "No geolocation available";
+    document.getElementById("riseset").appendChild(accspan);
   }
   </script>
 </html>
