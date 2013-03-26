@@ -36,9 +36,10 @@
   var map;
   function init(){
     var mapOptions = {
-      center: new google.maps.LatLng(-34.397, 150.644),
+      center: new google.maps.LatLng(-34.5442, 150.801263),
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
   }
