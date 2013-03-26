@@ -1,6 +1,6 @@
 # Moon-Phase
 
-### [http://mapmeld.github.com/moon-phase This map] is readable only outdoors, at night, during a full moon!
+### <a href="http://mapmeld.github.com/moon-phase">This map</a> is readable only outdoors, at night, during a full moon!
 
 ### It does not use Elvish magic, just JavaScript
 
@@ -21,11 +21,11 @@ If the moon is not full, it will display an error.
 
 You must share your location for the map to calculate sunrise, sunset, moonrise, and moonset. These coordinates and their accuracy are then fed into a Node.js server.
 
-The master branch of this repo runs on http://moonphase.herokuapp.com. It receives your coordinates and their accuracy, and uses the [http://mapbox.com/blog/mapbox-static-api/ MapBox Static API] to
+The master branch of this repo runs on http://moonphase.herokuapp.com. It receives your coordinates and their accuracy, and uses the <a href="http://mapbox.com/blog/mapbox-static-api/">MapBox Static API</a> to
 retrieve a small map of that area. It then uses node-canvas / node-canvas-heroku to count green and blue pixels. If there are enough green and blue pixels (from parks, forests, lakes, or oceans) then
 the map will display.  Otherwise you will see an error message.
 
-If you are not outside or want to test which areas will work, use a geolocation spoofer such as [https://chrome.google.com/webstore/detail/manual-geolocation/mfodligkojepnddfhkbkodbamcagfhlo?hl=en Manual Geolocation] plugin for Chrome.
+If you are not outside or want to test which areas will work, use a geolocation spoofer such as <a href="https://chrome.google.com/webstore/detail/manual-geolocation/mfodligkojepnddfhkbkodbamcagfhlo?hl=en">Manual Geolocation</a> plugin for Chrome.
 
 My Android phone gives an accuracy of one kilometer. I would need to be near a park and perhaps 0.5km inside to guarantee my location was suitably 'outside'.
 
