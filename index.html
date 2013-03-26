@@ -91,7 +91,7 @@ var confirmTotal = function(total){
     if(fullmoonout){
       checkLocation();
     }
-    map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
+    //map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
     var accspan = document.createElement('div');
     accspan.innerHTML = "Accuracy: " + position.coords.accuracy + "m";
     document.getElementById("riseset").appendChild(accspan);
