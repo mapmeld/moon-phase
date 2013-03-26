@@ -61,10 +61,36 @@
   <script type="text/javascript" src="riset.js" charset="UTF-8"></script>
   <script type="text/javascript" src="zodiac.js" charset="UTF-8"></script>
   <script type="text/javascript" charset="UTF-8">
+
+var fullmoonout = false;
+var latlng = null;
+
+var checkLocation = function(){
+  var s = document.createElement('script');
+  s.type = "text/javascript";
+  s.src = "http://moonphase.herokuapp.com/inpark?ctr=" + latlng.join(",");
+  document.body.appendChild(s);
+};
+var confirmTotal = function(total){
+  if(total * 1 > 20000){
+    // enough park / water around
+    document.getElementById("map").style.visibility = "visible"; 
+  }
+  else{
+    var accspan = document.createElement('div');
+    accspan.innerHTML = "Read this map in an area where you are surrounded by " + ll[2] + " meters of park or water";
+    document.getElementById("riseset").appendChild(accspan);
+  }
+};
+
   // this only get run if we can get a location ... should have a fallback if they don't have location.?
   var success = function(position) {
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
+    latlng = [ lat, lon, (position.coords.accuracy || 1) ];
+    if(fullmoonout){
+      checkLocation();
+    }
     map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
     var accspan = document.createElement('div');
     accspan.innerHTML = "Accuracy: " + position.coords.accuracy + "m";
@@ -98,7 +124,12 @@
     if((mytime < sunrise && mytime < moonset && ( moonrise > sunrise || moonrise < mytime )) || (mytime > sunset && mytime > moonrise && ( moonset < sunset || moonset > mytime ))){
       // moon is out, but is it a full moon?
       if(moon_day(today) > 0.4375 && moon_day(today) <= 0.5625){
-        document.getElementById("map").style.visibility = "visible";
+        // full moon out, but am I in a green area?
+        fullmoonout = true;
+        if(latlng){
+          checkLocation();
+        }
+        //document.getElementById("map").style.visibility = "visible";
       }
       else{
         var accspan = document.createElement('div');
