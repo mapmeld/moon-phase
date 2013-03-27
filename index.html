@@ -78,7 +78,7 @@ var confirmTotal = function(total){
   }
   else{
     var accspan = document.createElement('div');
-    accspan.innerHTML = "Read this map in an area where you are surrounded by " + latlng[2] + " meters of park or water";
+    accspan.innerHTML = "Read where you are surrounded by " + Math.round(latlng[2]) + " meters of nature";
     document.getElementById("riseset").appendChild(accspan);
   }
 };
