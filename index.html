@@ -31,7 +31,7 @@
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" / >
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>></script>
     <script type="text/javascript">
   var map;
   function init(){
@@ -146,7 +146,7 @@ var confirmTotal = function(total){
     var mytime = (100 * mytime.getHours()) + (1 * mytime.getMinutes());
     if((mytime < sunrise && mytime < moonset && ( moonrise > sunrise || moonrise < mytime )) || (mytime > sunset && mytime > moonrise && ( moonset < sunset || moonset > mytime ))){
       // moon is out, but is it a full moon?
-      if(moon_day(today) > 0.4375 && moon_day(today) <= 0.5625){
+      if(moon_day(today) > 0.4682 && moon_day(today) <= 0.5318){
         // full moon out, but am I in a green area?
         fullmoonout = true;
         if(latlng){
@@ -180,7 +180,7 @@ var confirmTotal = function(total){
     
     document.getElementById('date').innerHTML += year + "/" + month + "/" + day;
     document.getElementById('zodiac').innerHTML += zodiac_sign(today);
-    document.getElementById('mooncent').innerHTML += moon_day(today).toFixed(2)*100 + "%";
+    document.getElementById('mooncent').innerHTML += Math.round(moon_day(today).toFixed(2)*100) + "%";
   };
 
   if (navigator.geolocation) {
