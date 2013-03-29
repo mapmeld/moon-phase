@@ -16,6 +16,7 @@
         width: 100%;
         margin: 0;
         padding: 0;
+        font-family: arial;
       }
       #map{
         width: 100%;
@@ -65,7 +66,7 @@
     var lon = position.coords.longitude;
     var lat = position.coords.latitude;
     map.setCenter( new google.maps.LatLng( lat, lon ), 15 );
-    var accspan = document.createElement('span');
+    var accspan = document.createElement('div');
     accspan.innerHTML = "Accuracy: " + position.coords.accuracy + "m";
     document.getElementById("riseset").appendChild(accspan);
     //if(position.coords.accuracy < 1000){
@@ -100,24 +101,24 @@
         document.getElementById("map").style.visibility = "visible";
       }
       else{
-        var accspan = document.createElement('span');
+        var accspan = document.createElement('div');
         accspan.innerHTML = "This map must be read during a full moon";
         document.getElementById("riseset").appendChild(accspan);
       }
     }
     else{
       if(mytime > sunrise && mytime < sunset){
-        var accspan = document.createElement('span');
+        var accspan = document.createElement('div');
         accspan.innerHTML = "The sun has not yet set";
         document.getElementById("riseset").appendChild(accspan);
       }
       else if(mytime < moonrise){
-        var accspan = document.createElement('span');
+        var accspan = document.createElement('div');
         accspan.innerHTML = "The moon has not yet risen";
         document.getElementById("riseset").appendChild(accspan);
       }
       else if(mytime > moonset){
-        var accspan = document.createElement('span');
+        var accspan = document.createElement('div');
         accspan.innerHTML = "The moon has already set today";
         document.getElementById("riseset").appendChild(accspan);
       }
@@ -130,13 +131,13 @@
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, function(){
-      var accspan = document.createElement('span');
+      var accspan = document.createElement('div');
       accspan.innerHTML = "Geolocation must be enabled";
       document.getElementById("riseset").appendChild(accspan);
     }, { enableHighAccuracy: true });
   }
   else{
-    var accspan = document.createElement('span');
+    var accspan = document.createElement('div');
     accspan.innerHTML = "No geolocation available";
     document.getElementById("riseset").appendChild(accspan);
   }
